@@ -12,7 +12,7 @@ class Paytm {
 
   static Future<Map<dynamic, dynamic>> startPaytmPayment({bool testing,
     String requestType,
-    String ssoToken
+    String ssoToken,
     String mId,
     String orderId,
     String custId,
