@@ -61,8 +61,9 @@ public class PaytmPlugin implements MethodCallHandler {
             String callBackUrl = call.argument("callBackUrl").toString();
             String industryTypeId = call.argument("industryTypeId").toString();
             String checkSumHash = call.argument("checkSumHash").toString();
-
-            initializePaytmPayment(testing, mId, orderId, custId, channelId, txnAmount, website, callBackUrl, industryTypeId, checkSumHash);
+            String ssoToken = call.argument("ssoToken").toString();
+            String requestType = call.argument("requestType").toString();
+            initializePaytmPayment(testing, mId, orderId, custId, channelId, txnAmount, website, callBackUrl, industryTypeId, checkSumHash, ssoToken, requestType);
 
         } else {
             result.notImplemented();
@@ -84,7 +85,9 @@ public class PaytmPlugin implements MethodCallHandler {
                                         String website,
                                         String callBackUrl,
                                         String industryTypeId,
-                                        String checkSumHash) {
+                                        String checkSumHash,
+                                        String ssoToken,
+                                        String type) {
 
         //getting paytm service
 //        PaytmPGService Service = PaytmPGService.getStagingService();
@@ -104,15 +107,29 @@ public class PaytmPlugin implements MethodCallHandler {
 
         HashMap<String, String> paramMap = new HashMap<>();
         paramMap.put("MID", mId);
+        paramMap.put("REQUEST_TYPE", "ADD_MONEY");
+        paramMap.put("SSO_TOKEN", ssoToken);
         paramMap.put("ORDER_ID", orderId);
-        paramMap.put("CUST_ID", custId);
         paramMap.put("CHANNEL_ID", channelId);
+        paramMap.put("CUST_ID", custId);
         paramMap.put("TXN_AMOUNT", txnAmount);
         paramMap.put("WEBSITE", website);
+        paramMap.put("INDUSTRY_TYPE_ID", industryTypeId);
         paramMap.put("CALLBACK_URL", callBackUrl);
         paramMap.put("CHECKSUMHASH", checkSumHash);
-        paramMap.put("INDUSTRY_TYPE_ID", industryTypeId);
 
+       // paytmParams.put("MID",merchantMid);
+       // paytmParams.put("REQUEST_TYPE", "ADD_MONEY");
+        //paytmParams.put("SSO_TOKEN", sso_token);
+        //paytmParams.put("ORDER_ID",orderId);
+        //paytmParams.put("CHANNEL_ID",channelId);
+        //paytmParams.put("CUST_ID",custId);
+        //paytmParams.put("MOBILE_NO",mobileNo);
+       // paytmParams.put("EMAIL",email);
+        //paytmParams.put("TXN_AMOUNT",txnAmount);
+        //paytmParams.put("WEBSITE",website);
+        //paytmParams.put("INDUSTRY_TYPE_ID",industryTypeId);
+        //paytmParams.put("CALLBACK_URL", callbackUrl);
 
 //        Log.i(TAG, paramMap.toString());
 

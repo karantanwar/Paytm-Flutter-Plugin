@@ -10,20 +10,24 @@ class Paytm {
     return version;
   }
 
-  static Future<Map<dynamic, dynamic>> startPaytmPayment(
-      bool testing,
-      String mId,
-      String orderId,
-      String custId,
-      String channelId,
-      String txnAmount,
-      String website,
-      String callBackUrl,
-      String industryTypeId,
-      String checkSumHash) async {
+  static Future<Map<dynamic, dynamic>> startPaytmPayment({bool testing,
+    String requestType,
+    String ssoToken
+    String mId,
+    String orderId,
+    String custId,
+    String channelId,
+    String txnAmount,
+    String website,
+    String callBackUrl,
+    String industryTypeId,
+    String checkSumHash}
+      ) async {
     Map<dynamic, dynamic> response =
         await _channel.invokeMethod('startPaytmPayment', {
       "mId": mId,
+          "ssoToken" : ssoToken,
+          "requestType" : requestType,
       "testing": testing,
       'orderId': orderId,
       'custId': custId,
